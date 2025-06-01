@@ -31,6 +31,7 @@ Note:
 
 import re
 from pathlib import Path
+import shutil
 
 
 def create_versioned_dir(root_dir: str | Path) -> Path:
@@ -96,12 +97,27 @@ def create_versioned_dir(root_dir: str | Path) -> Path:
     new_version_dir.mkdir()
 
     # Update the 'latest' symbolic link to point to the new version directory
-    latest_link_path = root_dir / "latest"
-    if latest_link_path.is_symlink() or latest_link_path.exists():
-        latest_link_path.unlink()
-    latest_link_path.symlink_to(new_version_dir, target_is_directory=True)
+    # latest_link_path = root_dir / "latest"
+    # if latest_link_path.is_symlink() or latest_link_path.exists():
+    #     latest_link_path.unlink()
+    # latest_link_path.symlink_to(new_version_dir, target_is_directory=True)
 
-    return latest_link_path
+    # return latest_link_path
+
+    latest_link_path = root_dir / "latest"
+    if latest_link_path.exists() or latest_link_path.is_symlink():
+        if latest_link_path.is_symlink() or latest_link_path.is_file():
+            latest_link_path.unlink()
+        elif latest_link_path.is_dir():
+            shutil.rmtree(latest_link_path)
+
+    # ↓↓↓ ここを修正 ↓↓↓
+    try:
+        latest_link_path.symlink_to(new_version_dir, target_is_directory=True)
+    except OSError as e:
+        print(f"[Warning] Symlink creation failed: {e}. Skipping symbolic link creation.")
+
+    return new_version_dir
 
 
 def convert_to_snake_case(s: str) -> str:
