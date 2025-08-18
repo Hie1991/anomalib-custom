@@ -75,7 +75,7 @@ jobs:
     if: contains(inputs.tools, 'bandit')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run Bandit scan
         uses: ./.github/actions/security/bandit
         with:
@@ -90,7 +90,7 @@ jobs:
     container:
       image: returntocorp/semgrep
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run Semgrep scan
         uses: ./.github/actions/security/semgrep
         with:
@@ -102,7 +102,7 @@ jobs:
     if: contains(inputs.tools, 'trivy')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0 # Required for changed files detection
 
@@ -135,7 +135,7 @@ jobs:
     if: contains(inputs.tools, 'clamav')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run ClamAV scan
         uses: ./.github/actions/security/clamav
         with:
@@ -146,7 +146,7 @@ jobs:
     if: contains(inputs.tools, 'zizmor')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run Zizmor scan
         uses: ./.github/actions/security/zizmor
         with:
