@@ -80,7 +80,7 @@ jobs:
       version: ${{ steps.get-version.outputs.version }}
       is_prerelease: ${{ steps.check-prerelease.outputs.is_prerelease }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Validate version
         id: get-version
         env:
