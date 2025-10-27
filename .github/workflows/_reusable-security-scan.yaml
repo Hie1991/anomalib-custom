@@ -124,7 +124,7 @@ jobs:
           mkdir -p security-results/trivy
           mv ${{ steps.trivy.outputs.report_path }} security-results/trivy/
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: trivy-results
@@ -186,7 +186,7 @@ jobs:
       # Only upload if there are files
       - name: Upload combined results
         if: hashFiles('all-results/**/*') != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: security-scan-results
           path: all-results
