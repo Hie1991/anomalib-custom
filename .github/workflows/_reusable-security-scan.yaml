@@ -176,7 +176,7 @@ jobs:
 
       # Download artifacts with error handling
       - name: Download all results
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         continue-on-error: true # Don't fail if some tools didn't generate results
         with:
           pattern: "*-results"
